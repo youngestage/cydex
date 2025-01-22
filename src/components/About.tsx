@@ -11,7 +11,6 @@ export const About = () => {
           alt="Our story"
           className="w-full rounded-lg object-cover"
         />
-        </button>
       </div>
       <p className="text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
         We are leading the way in eco-friendly logistics, revolutionizing delivery with
