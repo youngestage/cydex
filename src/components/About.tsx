@@ -1,7 +1,7 @@
 export const About = () => {
   return (
     <section className="container mx-auto px-4 py-16">
-      <h2 className="font-clash text-[36px] leading-[48px] md:text-[36px] md:leading-[48px] font-semibold mb-6 text-right">
+      <h2 className="font-clash text-[36px] leading-[48px] md:text-[36px] md:leading-[48px] font-semibold mb-6 text-center">
         Cydex: Delivering a Greener Future
       </h2>
       <div className="relative w-full max-w-4xl mx-auto mb-8">
