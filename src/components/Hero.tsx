@@ -12,14 +12,14 @@ export const Hero = () => {
       
       <div className="container mx-auto px-4 py-16 text-left relative z-10 mb-12">
         <div className="max-w-2xl">
-          <h1 className="font-clash text-[64px] leading-[88px] font-semibold mb-6 animate-fadeIn text-white">
+          <h1 className="font-clash text-[48px] leading-[64px] md:text-[56px] md:leading-[72px] lg:text-[64px] lg:leading-[88px] font-semibold mb-6 animate-fadeIn text-white">
             Delivering a{" "}
             <span className="text-cydex-primary drop-shadow-lg">
               Greener Planet
             </span>
             , Every Order Counts
           </h1>
-          <p className="text-lg md:text-xl lg:text-2xl text-white mb-8 animate-fadeIn drop-shadow-lg">
+          <p className="text-base md:text-lg lg:text-xl text-white mb-8 animate-fadeIn drop-shadow-lg">
             Join us in revolutionizing delivery services with our eco-friendly fleet
             of bicycles and electric vehicles. Every delivery brings us closer to a
             sustainable future.
