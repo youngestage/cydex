@@ -12,7 +12,7 @@ export const Hero = () => {
       
       <div className="container mx-auto px-4 py-16 text-left relative z-10 mb-12">
         <div className="max-w-2xl">
-          <h1 className="font-clash text-[32px] leading-[40px] md:text-[48px] md:leading-[64px] lg:text-[64px] lg:leading-[88px] font-semibold mb-6 animate-fadeIn text-white">
+          <h1 className="font-clash text-[32px] leading-[40px] md:text-[48px] md:leading-[64px] lg:text-[48px] lg:leading-[64px] font-semibold mb-6 animate-fadeIn text-white">
             Delivering a{" "}
             <span className="text-cydex-primary drop-shadow-lg">
               Greener Planet
