@@ -1,3 +1,5 @@
+import { Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
+
 export const Footer = () => {
   return (
     <footer className="bg-white py-12">
