@@ -9,7 +9,7 @@ export const About = () => {
       </h2>
       <div className="relative w-full max-w-4xl mx-auto mb-8">
         <img
-          src="/aboutimage.jpg"
+          src="/about.jpg"
           alt="Our story"
           className="w-full rounded-lg object-cover"
         />
