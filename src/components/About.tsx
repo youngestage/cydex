@@ -11,7 +11,7 @@ export const About = () => {
           className="w-full rounded-lg object-cover"
         />
       </div>
-      <p className="text-lg block md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed text-left">
+      <p className="text-2xl block md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed text-left">
         We are leading the way in eco-friendly logistics, revolutionizing delivery with
         carbon-conscious solutions. Our mission is to reduce emissions and build a community
         that values a greener future. At Cydex, every order isn't just a delivery—it's a step
