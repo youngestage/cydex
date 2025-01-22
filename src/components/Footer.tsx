@@ -1,4 +1,4 @@
-import { LucideIcon } from "lucide-react";
+import { Twitter, Facebook, Instagram, Linkedin, WhatsApp } from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -12,11 +12,11 @@ export const Footer = () => {
             <li>Address: 12, Dopemu Close, Ibadan, Nigeria</li>
           </ul>
           <div className="flex items-center mt-4 space-x-4">
-            <LucideIcon icon="Twitter" className="w-5 h-5 text-gray-600" />
-            <LucideIcon icon="Facebook" className="w-5 h-5 text-gray-600" />
-            <LucideIcon icon="Instagram" className="w-5 h-5 text-gray-600" />
-            <LucideIcon icon="Linkedin" className="w-5 h-5 text-gray-600" />
-            <LucideIcon icon="Whatsapp" className="w-5 h-5 text-gray-600" />
+            <Twitter className="w-5 h-5 text-gray-600" />
+            <Facebook className="w-5 h-5 text-gray-600" />
+            <Instagram className="w-5 h-5 text-gray-600" />
+            <Linkedin className="w-5 h-5 text-gray-600" />
+            <WhatsApp className="w-5 h-5 text-gray-600" />
           </div>
         </div>
 

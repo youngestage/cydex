@@ -1,7 +1,7 @@
-import { LucideIcon } from "lucide-react";
+import { PlayCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-export const AboutSection = () => {
+export const About = () => {
   return (
     <section className="container mx-auto px-4 py-16 text-center">
       <h2 className="font-clash text-[36px] leading-[48px] md:text-[48px] md:leading-[64px] font-semibold mb-6">
@@ -17,7 +17,7 @@ export const AboutSection = () => {
           className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-2xl rounded-lg"
           aria-label="Play video"
         >
-          <LucideIcon icon="PlayCircle" className="w-12 h-12" />
+          <PlayCircle className="w-12 h-12" />
         </button>
       </div>
       <p className="text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
