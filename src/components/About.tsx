@@ -1,4 +1,3 @@
-import { PlayCircle } from "lucide-react";
 
 export const About = () => {
   return (
@@ -12,7 +11,6 @@ export const About = () => {
           alt="Our story"
           className="w-full rounded-lg object-cover"
         />
-          <PlayCircle className="w-12 h-12" />
         </button>
       </div>
       <p className="text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
