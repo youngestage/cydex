@@ -26,7 +26,7 @@ export const Hero = () => {
             sustainable future.
           </p>
           <Button
-            className="bg-cydex-primary hover:bg-cydex-primary/90 text-black text-lg px-8 py-6 transition-all duration-300 animate-fadeIn shadow-lg hover:shadow-xl"
+            className="bg-cydex-primary hover:bg-green-400 text-black text-lg px-8 py-6 rounded-full transition-all duration-300 animate-fadeIn shadow-lg hover:shadow-xl"
             onClick={() => console.log("CTA clicked")}
           >
             Place Your Eco-Friendly Delivery
