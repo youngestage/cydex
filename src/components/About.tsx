@@ -1,46 +1,30 @@
-export const About = () => {
+import { LucideIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+
+export const AboutSection = () => {
   return (
-    <section className="py-20 bg-white">
-      <div className="container mx-auto px-4">
-        <h2 className="text-4xl font-bold text-center mb-12">
-          Cydex: Delivering a Greener Future
-        </h2>
-        <div className="grid md:grid-cols-2 gap-12 items-center">
-          <div className="space-y-6">
-            <p className="text-lg text-gray-600">
-              At Cydex, we're revolutionizing the delivery industry by putting
-              sustainability at the heart of everything we do. Our mission is to
-              create a zero-emission delivery network that serves both our
-              customers and our planet.
-            </p>
-            <p className="text-lg text-gray-600">
-              Through our innovative use of bicycles and electric vehicles, we're
-              reducing carbon emissions while providing fast, reliable delivery
-              services. Join us in our journey towards a greener future.
-            </p>
-          </div>
-          <div className="bg-cydex-soft rounded-2xl p-8">
-            <div className="grid grid-cols-2 gap-6">
-              <div className="text-center">
-                <h3 className="text-4xl font-bold text-green-600 mb-2">100%</h3>
-                <p className="text-gray-600">Eco-Friendly Fleet</p>
-              </div>
-              <div className="text-center">
-                <h3 className="text-4xl font-bold text-green-600 mb-2">50K+</h3>
-                <p className="text-gray-600">Green Deliveries</p>
-              </div>
-              <div className="text-center">
-                <h3 className="text-4xl font-bold text-green-600 mb-2">30%</h3>
-                <p className="text-gray-600">Carbon Reduction</p>
-              </div>
-              <div className="text-center">
-                <h3 className="text-4xl font-bold text-green-600 mb-2">24/7</h3>
-                <p className="text-gray-600">Support</p>
-              </div>
-            </div>
-          </div>
-        </div>
+    <section className="container mx-auto px-4 py-16 text-center">
+      <h2 className="font-clash text-[36px] leading-[48px] md:text-[48px] md:leading-[64px] font-semibold mb-6">
+        Cydex: Delivering a Greener Future
+      </h2>
+      <div className="relative w-full max-w-4xl mx-auto mb-8">
+        <img
+          src="/aboutimage"
+          alt="Our story"
+          className="w-full rounded-lg object-cover"
+        />
+        <button
+          className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-2xl rounded-lg"
+          aria-label="Play video"
+        >
+          <LucideIcon icon="PlayCircle" className="w-12 h-12" />
+        </button>
       </div>
+      <p className="text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
+        We are leading the way in eco-friendly logistics, revolutionizing delivery with
+        carbon-conscious solutions. Our mission is to reduce emissions and build a community
+        that values a greener future. At Cydex, every order isn’t just a delivery—it’s a step
+        towards a cleaner, more sustainable world for generations to come.
+      </p>
     </section>
   );
-};
