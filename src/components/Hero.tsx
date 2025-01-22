@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 export const Hero = () => {
   return (
     <section 
-      className="relative min-h-[90vh] flex items-end bg-cover bg-center bg-no-repeat"
+      className="relative min-h-[75vh] md:min-h-[90vh] flex items-end bg-cover bg-center bg-no-repeat"
       style={{
         backgroundImage: "url('/heroimage.jpg')",
       }}
@@ -12,20 +12,20 @@ export const Hero = () => {
       
       <div className="container mx-auto px-4 py-16 text-left relative z-10 mb-12">
         <div className="max-w-2xl">
-          <h1 className="font-clash text-[48px] leading-[64px] md:text-[56px] md:leading-[72px] lg:text-[64px] lg:leading-[88px] font-semibold mb-6 animate-fadeIn text-white">
+          <h1 className="font-clash text-[32px] leading-[40px] md:text-[48px] md:leading-[64px] lg:text-[64px] lg:leading-[88px] font-semibold mb-6 animate-fadeIn text-white">
             Delivering a{" "}
             <span className="text-cydex-primary drop-shadow-lg">
               Greener Planet
             </span>
             , Every Order Counts
           </h1>
-          <p className="text-base md:text-lg lg:text-xl text-white mb-8 animate-fadeIn drop-shadow-lg">
+          <p className="text-sm md:text-base lg:text-xl text-white mb-8 animate-fadeIn drop-shadow-lg">
             Join us in revolutionizing delivery services with our eco-friendly fleet
             of bicycles and electric vehicles. Every delivery brings us closer to a
             sustainable future.
           </p>
           <Button
-            className="bg-cydex-primary hover:bg-green-400 text-black text-lg px-8 py-6 transition-all duration-300 animate-fadeIn shadow-lg hover:shadow-xl"
+            className="bg-cydex-primary hover:bg-cydex-primary/80 text-black text-lg px-8 py-6 transition-all duration-300 animate-fadeIn shadow-lg hover:shadow-xl"
             onClick={() => console.log("CTA clicked")}
           >
             Place Your Eco-Friendly Delivery

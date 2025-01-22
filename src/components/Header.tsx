@@ -37,7 +37,7 @@ export const Header = () => {
               </a>
             </div>
             
-            <Button className="bg-cydex-primary hover:bg-green-400 text-black">
+            <Button className="border border-black bg-white hover:bg-cydex-primary/80 text-black">
               Contact Us
             </Button>
           </div>
