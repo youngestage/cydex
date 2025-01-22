@@ -1,5 +1,4 @@
 import { PlayCircle } from "lucide-react";
-import { Button } from "@/components/ui/button";
 
 export const About = () => {
   return (
@@ -13,10 +12,6 @@ export const About = () => {
           alt="Our story"
           className="w-full rounded-lg object-cover"
         />
-        <button
-          className="absolute inset-0 flex items-center justify-center bg-black/40 text-white text-2xl rounded-lg"
-          aria-label="Play video"
-        >
           <PlayCircle className="w-12 h-12" />
         </button>
       </div>
