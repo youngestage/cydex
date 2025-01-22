@@ -48,15 +48,18 @@ export const Footer = () => {
           </div>
           <div>
             <h3 className="font-bold mb-4">Follow Us</h3>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-600 hover:text-green-500">
-                Twitter
+            <div className="flex items-center space-x-4">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+                <Facebook size={18} />
               </a>
-              <a href="#" className="text-gray-600 hover:text-green-500">
-                LinkedIn
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+                <Twitter size={18} />
               </a>
-              <a href="#" className="text-gray-600 hover:text-green-500">
-                Instagram
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+                <Instagram size={18} />
+              </a>
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
+                <Linkedin size={18} />
               </a>
             </div>
           </div>

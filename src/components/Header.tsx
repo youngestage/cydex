@@ -8,7 +8,7 @@ export const Header = () => {
       <div className="container mx-auto px-4 py-3">
         <div className="flex items-center justify-between">
           <Link to="/" className="flex items-center">
-            <img src="/lovable-uploads/60e59b4d-df27-46fe-8d54-ce9f5a5da5e4.png" alt="Cydex Logo" className="h-8" />
+            <img src="/logo.svg="Cydex Logo" className="h-8" />
           </Link>
           
           <div className="hidden md:flex items-center space-x-6">
