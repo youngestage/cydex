@@ -1,4 +1,4 @@
-import { Twitter, Facebook, Instagram, Linkedin, WhatsApp } from "lucide-react";
+import { Twitter, Facebook, Instagram, Linkedin } from "lucide-react";
 
 export const Footer = () => {
   return (
@@ -16,7 +16,6 @@ export const Footer = () => {
             <Facebook className="w-5 h-5 text-gray-600" />
             <Instagram className="w-5 h-5 text-gray-600" />
             <Linkedin className="w-5 h-5 text-gray-600" />
-            <WhatsApp className="w-5 h-5 text-gray-600" />
           </div>
         </div>
 
