@@ -23,8 +23,9 @@ export const AboutSection = () => {
       <p className="text-base md:text-lg text-gray-700 max-w-3xl mx-auto leading-relaxed">
         We are leading the way in eco-friendly logistics, revolutionizing delivery with
         carbon-conscious solutions. Our mission is to reduce emissions and build a community
-        that values a greener future. At Cydex, every order isn’t just a delivery—it’s a step
+        that values a greener future. At Cydex, every order isn't just a delivery—it's a step
         towards a cleaner, more sustainable world for generations to come.
       </p>
     </section>
   );
+};
