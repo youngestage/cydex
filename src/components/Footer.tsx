@@ -5,7 +5,9 @@ export const Footer = () => {
     <footer className="bg-gray-100 py-12">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         <div>
-          <h3 className="font-clash text-xl font-semibold mb-4">Cydex</h3>
+          <Link to="/" className="flex items-center">
+            <img src="/logo.svg" alt="Cydex Logo" className="h-10" />
+          </Link>
           <ul className="space-y-2 text-gray-700">
             <li>Phone Number: +234 806 687 5489</li>
             <li>Email: support@cydex.com</li>
