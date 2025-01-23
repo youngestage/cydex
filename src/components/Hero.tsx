@@ -1,6 +1,9 @@
 import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
+  const navigate = useNavigate();
+
   return (
     <section 
       className="relative min-h-[75vh] md:min-h-[90vh] flex items-end bg-cover bg-center bg-no-repeat"
@@ -26,7 +29,7 @@ export const Hero = () => {
           </p>
           <Button
             className="bg-cydex-primary hover:bg-cydex-primary/80 text-black text-lg px-8 py-6 transition-all duration-300 animate-fadeIn shadow-lg hover:shadow-xl"
-            onClick={() => console.log("CTA clicked")}
+            onClick={() => navigate("/order")}
           >
             Place Your Eco-Friendly Delivery
           </Button>
