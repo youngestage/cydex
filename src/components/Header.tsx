@@ -1,7 +1,11 @@
 import { Button } from "@/components/ui/button";
-import { Facebook, Instagram, Twitter, Linkedin, Menu, X } from "lucide-react";
+import { Menu, X, User } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+
+// Mock authentication state - in a real app, this would come from your auth system
+const isLoggedIn = false; // Replace with actual auth state
+const userName = "John"; // Replace with actual user name
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -22,24 +26,24 @@ export const Header = () => {
               <Link to="/contact" className="font-clash text-gray-600 hover:text-gray-900">Contact</Link>
             </nav>
             
-            <div className="flex items-center space-x-4">
-              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
-                <Facebook size={18} />
-              </a>
-              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
-                <Twitter size={18} />
-              </a>
-              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
-                <Instagram size={18} />
-              </a>
-              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
-                <Linkedin size={18} />
-              </a>
-            </div>
-            
-            <Button className="border border-black bg-white hover:bg-cydex-primary/80 text-black">
-              Contact Us
-            </Button>
+            {isLoggedIn ? (
+              <div className="flex items-center space-x-4">
+                <Link to="/dashboard">
+                  <Button className="border border-black bg-white hover:bg-cydex-primary/80 text-black">
+                    Dashboard
+                  </Button>
+                </Link>
+                <Link to="/account" className="text-gray-600 hover:text-gray-900">
+                  <User size={24} />
+                </Link>
+              </div>
+            ) : (
+              <Link to="/login">
+                <Button className="border border-black bg-white hover:bg-cydex-primary/80 text-black">
+                  Contact Us
+                </Button>
+              </Link>
+            )}
           </div>
           
           <button 
@@ -58,23 +62,22 @@ export const Header = () => {
               <Link to="/about" className="font-clash text-gray-600 hover:text-gray-900">About</Link>
               <Link to="/services" className="font-clash text-gray-600 hover:text-gray-900">Services</Link>
               <Link to="/contact" className="font-clash text-gray-600 hover:text-gray-900">Contact</Link>
-              <div className="flex space-x-4 py-4">
-                <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
-                  <Facebook size={18} />
-                </a>
-                <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
-                  <Twitter size={18} />
-                </a>
-                <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
-                  <Instagram size={18} />
-                </a>
-                <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" className="text-gray-600 hover:text-gray-900">
-                  <Linkedin size={18} />
-                </a>
-              </div>
-              <Button className="bg-cydex-primary hover:bg-green-400 text-black w-full">
-                Contact Us
-              </Button>
+              {isLoggedIn ? (
+                <>
+                  <Link to="/dashboard" className="font-clash text-gray-600 hover:text-gray-900">
+                    Dashboard
+                  </Link>
+                  <Link to="/account" className="font-clash text-gray-600 hover:text-gray-900">
+                    My Account
+                  </Link>
+                </>
+              ) : (
+                <Link to="/login">
+                  <Button className="bg-cydex-primary hover:bg-green-400 text-black w-full">
+                    Contact Us
+                  </Button>
+                </Link>
+              )}
             </nav>
           </div>
         )}

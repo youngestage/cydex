@@ -3,6 +3,9 @@ import { useNavigate } from "react-router-dom";
 
 export const Hero = () => {
   const navigate = useNavigate();
+  // Mock authentication state - in a real app, this would come from your auth system
+  const isLoggedIn = false;
+  const userName = "John";
 
   return (
     <section 
@@ -15,6 +18,11 @@ export const Hero = () => {
       
       <div className="container mx-auto px-4 py-16 text-left relative z-10 mb-12">
         <div className="max-w-2xl">
+          {isLoggedIn && (
+            <p className="text-white text-xl mb-4 animate-fadeIn">
+              Welcome back, {userName}!
+            </p>
+          )}
           <h1 className="font-clash text-[32px] leading-[40px] md:text-[48px] md:leading-[64px] lg:text-[48px] lg:leading-[64px] font-semibold mb-6 animate-fadeIn text-white">
             Delivering a{" "}
             <span className="text-cydex-primary drop-shadow-lg">

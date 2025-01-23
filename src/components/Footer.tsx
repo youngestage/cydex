@@ -2,6 +2,9 @@ import { Twitter, Facebook, Instagram, Linkedin } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export const Footer = () => {
+  // Mock authentication state - in a real app, this would come from your auth system
+  const isLoggedIn = false;
+
   return (
     <footer className="bg-gray-100 py-12">
       <div className="container mx-auto px-4 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -26,19 +29,24 @@ export const Footer = () => {
           <h3 className="font-clash text-xl font-semibold mb-4">Quick Links</h3>
           <ul className="space-y-2 text-gray-700">
             <li>
-              <a href="#" className="hover:text-cydex-primary">
+              <Link to="/order" className="hover:text-cydex-primary">
                 Book your pickup & delivery
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-cydex-primary">
+              <Link to="/community" className="hover:text-cydex-primary">
                 Join community
-              </a>
+              </Link>
             </li>
             <li>
-              <a href="#" className="hover:text-cydex-primary">
+              <Link to="/faq" className="hover:text-cydex-primary">
                 FAQs
-              </a>
+              </Link>
+            </li>
+            <li>
+              <Link to={isLoggedIn ? "/account" : "/login"} className="hover:text-cydex-primary">
+                My Account
+              </Link>
             </li>
           </ul>
         </div>
