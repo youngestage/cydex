@@ -7,6 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Mail, Lock, User, Loader2 } from "lucide-react";
+import { toast } from "@/hooks/use-toast";
 
 export default function Auth() {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,7 +27,11 @@ export default function Auth() {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!acceptTerms) {
-      toast.error("Please accept the terms and conditions");
+      toast({
+        title: "Terms & Conditions",
+        description: "Please accept the terms and conditions",
+        variant: "destructive",
+      });
       return;
     }
     setIsLoading(true);
