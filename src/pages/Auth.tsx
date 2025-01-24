@@ -20,8 +20,21 @@ export default function Auth() {
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    await signIn(email, password);
-    setIsLoading(false);
+    try {
+      await signIn(email, password);
+    } catch (error: any) {
+      console.error("Login error:", error);
+      const errorMessage = error.message === "Invalid login credentials" 
+        ? "Invalid email or password. Please try again."
+        : "An error occurred during login. Please try again.";
+      toast({
+        title: "Login Failed",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSignUp = async (e: React.FormEvent) => {
@@ -34,9 +47,33 @@ export default function Auth() {
       });
       return;
     }
+    
+    if (password.length < 6) {
+      toast({
+        title: "Invalid Password",
+        description: "Password must be at least 6 characters long",
+        variant: "destructive",
+      });
+      return;
+    }
+
     setIsLoading(true);
-    await signUp(email, password, fullName);
-    setIsLoading(false);
+    try {
+      await signUp(email, password, fullName);
+      toast({
+        title: "Success",
+        description: "Please check your email to verify your account",
+      });
+    } catch (error: any) {
+      console.error("Signup error:", error);
+      toast({
+        title: "Signup Failed",
+        description: error.message || "An error occurred during signup",
+        variant: "destructive",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -148,7 +185,7 @@ export default function Auth() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      minLength={8}
+                      minLength={6}
                     />
                   </div>
                 </div>
