@@ -22,14 +22,14 @@ const fetchCarbonImpact = async () => {
   const { data: impact, error } = await supabase
     .from("carbon_impacts")
     .select("*")
-    .single();
+    .maybeSingle();
   
   if (error) {
     console.error("Error fetching carbon impact:", error);
     throw error;
   }
   
-  return impact as CarbonImpact;
+  return impact as CarbonImpact | null;
 };
 
 const fetchMonthlySavings = async () => {
@@ -132,7 +132,7 @@ export const CarbonTracker = () => {
                 </h3>
                 <div className="flex items-baseline gap-2">
                   <span className="font-clash text-4xl md:text-5xl font-bold text-cydex-primary">
-                    {count}
+                    {impactData ? count : 0}
                   </span>
                   <span className="text-xl text-gray-600">
                     Tons of CO₂ Saved
