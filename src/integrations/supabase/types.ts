@@ -9,7 +9,57 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      carbon_impacts: {
+        Row: {
+          co2_saved: number
+          created_at: string
+          delivery_count: number
+          id: string
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          co2_saved?: number
+          created_at?: string
+          delivery_count?: number
+          id?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          co2_saved?: number
+          created_at?: string
+          delivery_count?: number
+          id?: string
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      monthly_carbon_savings: {
+        Row: {
+          created_at: string
+          id: string
+          month: string
+          savings: number
+          user_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          month: string
+          savings?: number
+          user_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          month?: string
+          savings?: number
+          user_id?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
