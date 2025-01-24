@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Restaurant, ShoppingBag, Truck, Leaf } from "lucide-react";
+import { Utensils, ShoppingBag, Truck, Leaf } from "lucide-react";
 
 const categories = [
   {
     name: "Restaurants",
-    icon: Restaurant,
+    icon: Utensils,
     color: "bg-[#FEF7CD]",
     description: "Eco-friendly food delivery",
   },
