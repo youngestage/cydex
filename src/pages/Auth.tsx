@@ -10,10 +10,13 @@ import { Mail, Lock, User, Phone, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import { useNavigate } from "react-router-dom";
 
 type UserRole = 'customer' | 'vendor' | 'rider';
 
 export default function Auth() {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -21,16 +24,34 @@ export default function Auth() {
   const [phoneNumber, setPhoneNumber] = useState("");
   const [role, setRole] = useState<UserRole>("customer");
   const [acceptTerms, setAcceptTerms] = useState(false);
-  const { signIn, signUp } = useAuth();
+  const { signIn, signUp, user } = useAuth();
+
+  // Redirect if already logged in
+  if (user) {
+    navigate("/");
+    return null;
+  }
 
   const validatePhoneNumber = (phone: string) => {
     const phoneRegex = /^\+?[1-9]\d{1,14}$/;
     return phoneRegex.test(phone);
   };
 
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
+
+    if (!validateEmail(email)) {
+      toast.error("Please enter a valid email address");
+      setIsLoading(false);
+      return;
+    }
+
     try {
       await signIn(email, password);
     } catch (error: any) {
@@ -43,11 +64,18 @@ export default function Auth() {
 
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Validation checks
     if (!acceptTerms) {
       toast.error("Please accept the terms and conditions");
       return;
     }
     
+    if (!validateEmail(email)) {
+      toast.error("Please enter a valid email address");
+      return;
+    }
+
     if (password.length < 6) {
       toast.error("Password must be at least 6 characters long");
       return;
@@ -55,6 +83,11 @@ export default function Auth() {
 
     if (!validatePhoneNumber(phoneNumber)) {
       toast.error("Please enter a valid phone number");
+      return;
+    }
+
+    if (!fullName.trim()) {
+      toast.error("Please enter your full name");
       return;
     }
 
@@ -83,6 +116,12 @@ export default function Auth() {
               Track your impact and help reduce carbon emissions
             </p>
           </div>
+
+          <Alert>
+            <AlertDescription>
+              Please verify your email address after signing up to access all features.
+            </AlertDescription>
+          </Alert>
 
           <Tabs defaultValue="login" className="w-full">
             <TabsList className="grid w-full grid-cols-2">

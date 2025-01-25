@@ -7,6 +7,7 @@ import { toast } from "sonner";
 interface AuthContextType {
   session: Session | null;
   user: User | null;
+  userRole: string | null;
   signIn: (email: string, password: string) => Promise<void>;
   signUp: (email: string, password: string, fullName: string, phoneNumber: string, role: string) => Promise<void>;
   signOut: () => Promise<void>;
@@ -18,23 +19,66 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState<Session | null>(null);
   const [user, setUser] = useState<User | null>(null);
+  const [userRole, setUserRole] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+  // Fetch user role from profiles table
+  const fetchUserRole = async (userId: string) => {
+    try {
+      const { data, error } = await supabase
+        .from('profiles')
+        .select('role')
+        .eq('id', userId)
+        .single();
+
+      if (error) throw error;
+      return data?.role;
+    } catch (error) {
+      console.error('Error fetching user role:', error);
+      return null;
+    }
+  };
+
+  // Handle role-based redirection
+  const handleRoleBasedRedirection = (role: string) => {
+    switch (role) {
+      case 'vendor':
+        navigate('/vendor');
+        break;
+      case 'rider':
+        navigate('/rider');
+        break;
+      case 'customer':
+        navigate('/store');
+        break;
+      default:
+        navigate('/');
+    }
+  };
+
   useEffect(() => {
     // Get initial session
-    supabase.auth.getSession().then(({ data: { session } }) => {
+    supabase.auth.getSession().then(async ({ data: { session } }) => {
       setSession(session);
       setUser(session?.user ?? null);
+      if (session?.user) {
+        const role = await fetchUserRole(session.user.id);
+        setUserRole(role);
+      }
       setLoading(false);
     });
 
     // Listen for auth changes
     const {
       data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
+    } = supabase.auth.onAuthStateChange(async (_event, session) => {
       setSession(session);
       setUser(session?.user ?? null);
+      if (session?.user) {
+        const role = await fetchUserRole(session.user.id);
+        setUserRole(role);
+      }
       setLoading(false);
     });
 
@@ -43,13 +87,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signIn = async (email: string, password: string) => {
     try {
-      const { error } = await supabase.auth.signInWithPassword({
+      const { error, data } = await supabase.auth.signInWithPassword({
         email,
         password,
       });
       if (error) throw error;
-      toast.success("Successfully signed in!");
-      navigate("/");
+      
+      const role = await fetchUserRole(data.user.id);
+      if (role) {
+        toast.success("Successfully signed in!");
+        handleRoleBasedRedirection(role);
+      }
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -87,7 +135,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   };
 
   return (
-    <AuthContext.Provider value={{ session, user, signIn, signUp, signOut, loading }}>
+    <AuthContext.Provider value={{ session, user, userRole, signIn, signUp, signOut, loading }}>
       {children}
     </AuthContext.Provider>
   );
