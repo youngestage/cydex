@@ -8,6 +8,7 @@ import Index from "./pages/Index";
 import Order from "./pages/Order";
 import Impact from "./pages/Impact";
 import Auth from "./pages/Auth";
+import VendorDashboard from "./pages/VendorDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -23,14 +24,16 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/auth" element={<Auth />} />
             <Route path="/order" element={<Order />} />
-            <Route
-              path="/impact"
-              element={
-                <ProtectedRoute>
-                  <Impact />
-                </ProtectedRoute>
-              }
-            />
+            <Route path="/impact" element={
+              <ProtectedRoute>
+                <Impact />
+              </ProtectedRoute>
+            } />
+            <Route path="/vendor/*" element={
+              <ProtectedRoute>
+                <VendorDashboard />
+              </ProtectedRoute>
+            } />
           </Routes>
         </AuthProvider>
       </BrowserRouter>
