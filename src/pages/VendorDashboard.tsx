@@ -3,6 +3,7 @@ import { useNavigate, Link, Outlet } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Package, ChartBar, Store, ShoppingCart, Settings } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 
 const VendorDashboard = () => {
   const { user } = useAuth();
