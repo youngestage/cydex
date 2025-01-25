@@ -6,16 +6,27 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
-import { Mail, Lock, User, Loader2 } from "lucide-react";
-import { toast } from "@/hooks/use-toast";
+import { Mail, Lock, User, Phone, Loader2 } from "lucide-react";
+import { toast } from "sonner";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
+import { Label } from "@/components/ui/label";
+
+type UserRole = 'customer' | 'vendor' | 'rider';
 
 export default function Auth() {
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [fullName, setFullName] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [role, setRole] = useState<UserRole>("customer");
   const [acceptTerms, setAcceptTerms] = useState(false);
   const { signIn, signUp } = useAuth();
+
+  const validatePhoneNumber = (phone: string) => {
+    const phoneRegex = /^\+?[1-9]\d{1,14}$/;
+    return phoneRegex.test(phone);
+  };
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -24,14 +35,7 @@ export default function Auth() {
       await signIn(email, password);
     } catch (error: any) {
       console.error("Login error:", error);
-      const errorMessage = error.message === "Invalid login credentials" 
-        ? "Invalid email or password. Please try again."
-        : "An error occurred during login. Please try again.";
-      toast({
-        title: "Login Failed",
-        description: errorMessage,
-        variant: "destructive",
-      });
+      toast.error(error.message || "An error occurred during login");
     } finally {
       setIsLoading(false);
     }
@@ -40,37 +44,27 @@ export default function Auth() {
   const handleSignUp = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!acceptTerms) {
-      toast({
-        title: "Terms & Conditions",
-        description: "Please accept the terms and conditions",
-        variant: "destructive",
-      });
+      toast.error("Please accept the terms and conditions");
       return;
     }
     
     if (password.length < 6) {
-      toast({
-        title: "Invalid Password",
-        description: "Password must be at least 6 characters long",
-        variant: "destructive",
-      });
+      toast.error("Password must be at least 6 characters long");
+      return;
+    }
+
+    if (!validatePhoneNumber(phoneNumber)) {
+      toast.error("Please enter a valid phone number");
       return;
     }
 
     setIsLoading(true);
     try {
-      await signUp(email, password, fullName);
-      toast({
-        title: "Success",
-        description: "Please check your email to verify your account",
-      });
+      await signUp(email, password, fullName, phoneNumber, role);
+      toast.success("Please check your email to verify your account");
     } catch (error: any) {
       console.error("Signup error:", error);
-      toast({
-        title: "Signup Failed",
-        description: error.message || "An error occurred during signup",
-        variant: "destructive",
-      });
+      toast.error(error.message || "An error occurred during signup");
     } finally {
       setIsLoading(false);
     }
@@ -177,6 +171,17 @@ export default function Auth() {
                     />
                   </div>
                   <div className="relative">
+                    <Phone className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
+                    <Input
+                      type="tel"
+                      placeholder="Phone Number"
+                      className="pl-10"
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div className="relative">
                     <Lock className="absolute left-3 top-3 h-5 w-5 text-gray-400" />
                     <Input
                       type="password"
@@ -187,6 +192,28 @@ export default function Auth() {
                       required
                       minLength={6}
                     />
+                  </div>
+                  
+                  <div className="space-y-2">
+                    <Label>Select your role</Label>
+                    <RadioGroup
+                      value={role}
+                      onValueChange={(value) => setRole(value as UserRole)}
+                      className="grid grid-cols-3 gap-4"
+                    >
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="customer" id="customer" />
+                        <Label htmlFor="customer">Customer</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="vendor" id="vendor" />
+                        <Label htmlFor="vendor">Vendor</Label>
+                      </div>
+                      <div className="flex items-center space-x-2">
+                        <RadioGroupItem value="rider" id="rider" />
+                        <Label htmlFor="rider">Rider</Label>
+                      </div>
+                    </RadioGroup>
                   </div>
                 </div>
 
