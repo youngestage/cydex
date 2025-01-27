@@ -9,6 +9,8 @@ import Order from "./pages/Order";
 import Impact from "./pages/Impact";
 import Auth from "./pages/Auth";
 import VendorDashboard from "./pages/VendorDashboard";
+import StorePage from "./pages/StorePage";
+import RiderDashboard from "./pages/RiderDashboard";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 const queryClient = new QueryClient();
@@ -29,9 +31,19 @@ const App = () => (
                 <Impact />
               </ProtectedRoute>
             } />
+            <Route path="/store/*" element={
+              <ProtectedRoute>
+                <StorePage />
+              </ProtectedRoute>
+            } />
             <Route path="/vendor/*" element={
               <ProtectedRoute>
                 <VendorDashboard />
+              </ProtectedRoute>
+            } />
+            <Route path="/rider/*" element={
+              <ProtectedRoute>
+                <RiderDashboard />
               </ProtectedRoute>
             } />
           </Routes>
