@@ -13,7 +13,20 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, signOut } = useAuth();
+  const { user, userRole, signOut } = useAuth();
+
+  const getDashboardRoute = () => {
+    switch (userRole) {
+      case 'vendor':
+        return '/vendor';
+      case 'rider':
+        return '/rider';
+      case 'customer':
+        return '/store';
+      default:
+        return '/impact';
+    }
+  };
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-white z-50 shadow-lg">
@@ -52,9 +65,11 @@ export const Header = () => {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
                   <DropdownMenuItem asChild>
-                    <Link to="/impact" className="cursor-pointer">
+                    <Link to={getDashboardRoute()} className="cursor-pointer">
                       <User className="mr-2 h-4 w-4" />
-                      Dashboard
+                      {userRole === 'vendor' ? 'Vendor Dashboard' :
+                       userRole === 'rider' ? 'Rider Dashboard' :
+                       userRole === 'customer' ? 'Store' : 'Dashboard'}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => signOut()}>
@@ -97,8 +112,10 @@ export const Header = () => {
               </Link>
               {user ? (
                 <>
-                  <Link to="/impact" className="font-clash text-gray-600 hover:text-gray-900">
-                    Dashboard
+                  <Link to={getDashboardRoute()} className="font-clash text-gray-600 hover:text-gray-900">
+                    {userRole === 'vendor' ? 'Vendor Dashboard' :
+                     userRole === 'rider' ? 'Rider Dashboard' :
+                     userRole === 'customer' ? 'Store' : 'Dashboard'}
                   </Link>
                   <Button
                     onClick={() => signOut()}
