@@ -151,12 +151,12 @@ const Impact = () => {
                 <p className="text-gray-600">
                   Every sustainable choice adds up. Track your progress and inspire 
                   others to join the movement for a greener future.
-                </p>
+                </p>5
               </div>
             </div>
             <div className="text-center mt-12">
               <Button className="bg-cydex-primary hover:bg-cydex-primary/90 text-black font-medium px-8 py-6 text-lg">
-                Track Your Impact Now and Inspire Change!
+                Track Your ImpactNow and Inspire Change!
               </Button>
             </div>
           </div>

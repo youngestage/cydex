@@ -4,6 +4,8 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Package, ChartBar, Store, ShoppingCart, Settings } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
+import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 
 const VendorDashboard = () => {
   const { user } = useAuth();
@@ -27,6 +29,7 @@ const VendorDashboard = () => {
 
   return (
     <div className="min-h-screen bg-background">
+      <Header />
       <div className="flex">
         {/* Sidebar */}
         <aside className="w-64 min-h-screen bg-card border-r">
@@ -92,6 +95,7 @@ const VendorDashboard = () => {
           <Outlet />
         </main>
       </div>
+      <Footer />
     </div>
   );
 };
