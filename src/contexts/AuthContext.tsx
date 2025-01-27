@@ -60,6 +60,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Get initial session
     supabase.auth.getSession().then(async ({ data: { session } }) => {
+      console.log("Initial session check:", session);
       setSession(session);
       setUser(session?.user ?? null);
       if (session?.user) {
@@ -79,6 +80,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (session?.user) {
         const role = await fetchUserRole(session.user.id);
         setUserRole(role);
+      } else {
+        setUserRole(null);
       }
       setLoading(false);
     });
@@ -130,8 +133,19 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   const signOut = async () => {
     try {
+      console.log("Signing out...");
       const { error } = await supabase.auth.signOut();
-      if (error) throw error;
+      if (error) {
+        console.error("Sign out error:", error);
+        throw error;
+      }
+      
+      // Clear local state
+      setSession(null);
+      setUser(null);
+      setUserRole(null);
+      
+      // Navigate after state is cleared
       navigate("/");
       toast.success("Successfully signed out!");
     } catch (error: any) {
