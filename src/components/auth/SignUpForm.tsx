@@ -61,10 +61,8 @@ export const SignUpForm = () => {
     setIsLoading(true);
     try {
       await signUp(email, password, fullName, phoneNumber, role);
-      toast.success("Please check your email to verify your account");
     } catch (error: any) {
       console.error("Signup error:", error);
-      toast.error(error.message || "An error occurred during signup");
     } finally {
       setIsLoading(false);
     }

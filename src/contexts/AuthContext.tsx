@@ -73,6 +73,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (_event, session) => {
+      console.log("Auth state changed:", _event, session);
       setSession(session);
       setUser(session?.user ?? null);
       if (session?.user) {
@@ -99,7 +100,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         handleRoleBasedRedirection(role);
       }
     } catch (error: any) {
+      console.error("Sign in error:", error);
       toast.error(error.message);
+      throw error;
     }
   };
 
@@ -119,7 +122,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (error) throw error;
       toast.success("Successfully signed up! Please check your email to verify your account.");
     } catch (error: any) {
+      console.error("Sign up error:", error);
       toast.error(error.message);
+      throw error;
     }
   };
 
@@ -130,7 +135,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       navigate("/");
       toast.success("Successfully signed out!");
     } catch (error: any) {
+      console.error("Sign out error:", error);
       toast.error(error.message);
+      throw error;
     }
   };
 

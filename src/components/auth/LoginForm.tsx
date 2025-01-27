@@ -31,7 +31,6 @@ export const LoginForm = () => {
       await signIn(email, password);
     } catch (error: any) {
       console.error("Login error:", error);
-      toast.error(error.message || "An error occurred during login");
     } finally {
       setIsLoading(false);
     }
