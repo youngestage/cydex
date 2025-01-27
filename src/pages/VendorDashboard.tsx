@@ -1,11 +1,12 @@
 import { useEffect } from "react";
-import { useNavigate, Link, Outlet } from "react-router-dom";
+import { useNavigate, Link, Outlet, Routes, Route } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
 import { Package, ChartBar, Store, ShoppingCart, Settings } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
+import Products from "./vendor/Products";
 
 const VendorDashboard = () => {
   const { user } = useAuth();
@@ -92,7 +93,10 @@ const VendorDashboard = () => {
 
         {/* Main Content */}
         <main className="flex-1 p-6">
-          <Outlet />
+          <Routes>
+            <Route path="products" element={<Products />} />
+            <Route path="*" element={<Outlet />} />
+          </Routes>
         </main>
       </div>
       <Footer />
