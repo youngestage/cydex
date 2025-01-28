@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, LogOut } from "lucide-react";
+import { Menu, X, LogOut } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -16,29 +16,16 @@ export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { user, userRole, signOut, loading } = useAuth();
 
-  const getDashboardRoute = () => {
+  const getDashboardInfo = () => {
     switch (userRole) {
       case 'vendor':
-        return '/vendor';
+        return { route: '/vendor', text: 'Vendor Dashboard' };
       case 'rider':
-        return '/rider';
+        return { route: '/rider', text: 'Rider Dashboard' };
       case 'customer':
-        return '/store';
+        return { route: '/store', text: 'Store' };
       default:
-        return '/auth';
-    }
-  };
-
-  const getDashboardText = () => {
-    switch (userRole) {
-      case 'vendor':
-        return 'Vendor Dashboard';
-      case 'rider':
-        return 'Rider Dashboard';
-      case 'customer':
-        return 'Store';
-      default:
-        return 'Dashboard';
+        return { route: '/auth', text: 'Dashboard' };
     }
   };
 
@@ -61,9 +48,8 @@ export const Header = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem asChild>
-              <Link to={getDashboardRoute()} className="cursor-pointer">
-                <User className="mr-2 h-4 w-4" />
-                {getDashboardText()}
+              <Link to={getDashboardInfo().route} className="cursor-pointer">
+                {getDashboardInfo().text}
               </Link>
             </DropdownMenuItem>
             <DropdownMenuItem onClick={() => signOut()}>
@@ -81,58 +67,6 @@ export const Header = () => {
           Login
         </Button>
       </Link>
-    );
-  };
-
-  const renderMobileMenu = () => {
-    if (loading) {
-      return (
-        <nav className="flex flex-col p-4 space-y-4">
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-6 w-24" />
-          <Skeleton className="h-10 w-full" />
-        </nav>
-      );
-    }
-
-    return (
-      <nav className="flex flex-col p-4 space-y-4">
-        <Link to="/" className="font-clash text-gray-600 hover:text-gray-900">
-          Home
-        </Link>
-        <Link to="/about" className="font-clash text-gray-600 hover:text-gray-900">
-          About
-        </Link>
-        <Link to="/services" className="font-clash text-gray-600 hover:text-gray-900">
-          Services
-        </Link>
-        <Link to="/contact" className="font-clash text-gray-600 hover:text-gray-900">
-          Contact
-        </Link>
-        {user && userRole ? (
-          <>
-            <Link to={getDashboardRoute()} className="font-clash text-gray-600 hover:text-gray-900">
-              {getDashboardText()}
-            </Link>
-            <Button
-              onClick={() => signOut()}
-              variant="ghost"
-              className="justify-start px-2"
-            >
-              <LogOut className="mr-2 h-4 w-4" />
-              Logout
-            </Button>
-          </>
-        ) : (
-          <Link to="/auth">
-            <Button className="w-full bg-cydex-primary hover:bg-cydex-primary/80 text-black">
-              Login
-            </Button>
-          </Link>
-        )}
-      </nav>
     );
   };
 
@@ -172,7 +106,41 @@ export const Header = () => {
 
         {isMenuOpen && (
           <div className="md:hidden absolute top-full left-0 right-0 bg-white shadow-lg">
-            {renderMobileMenu()}
+            <nav className="flex flex-col p-4 space-y-4">
+              <Link to="/" className="font-clash text-gray-600 hover:text-gray-900">
+                Home
+              </Link>
+              <Link to="/about" className="font-clash text-gray-600 hover:text-gray-900">
+                About
+              </Link>
+              <Link to="/services" className="font-clash text-gray-600 hover:text-gray-900">
+                Services
+              </Link>
+              <Link to="/contact" className="font-clash text-gray-600 hover:text-gray-900">
+                Contact
+              </Link>
+              {user && userRole && (
+                <Link to={getDashboardInfo().route} className="font-clash text-gray-600 hover:text-gray-900">
+                  {getDashboardInfo().text}
+                </Link>
+              )}
+              {user ? (
+                <Button
+                  onClick={() => signOut()}
+                  variant="ghost"
+                  className="justify-start px-2"
+                >
+                  <LogOut className="mr-2 h-4 w-4" />
+                  Logout
+                </Button>
+              ) : (
+                <Link to="/auth">
+                  <Button className="w-full bg-cydex-primary hover:bg-cydex-primary/80 text-black">
+                    Login
+                  </Button>
+                </Link>
+              )}
+            </nav>
           </div>
         )}
       </div>
