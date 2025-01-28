@@ -92,7 +92,7 @@ const VendorDashboard = () => {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-6 pt-50">
+        <main className="flex-1 p-6 pt-200">
           <Routes>
             <Route path="products" element={<Products />} />
             <Route path="*" element={<Outlet />} />
