@@ -64,43 +64,68 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     const initializeAuth = async () => {
       try {
+        setLoading(true);
         console.log("Initializing auth state...");
-        const { data: { session } } = await supabase.auth.getSession();
-        console.log("Initial session:", session);
         
-        setSession(session);
-        setUser(session?.user ?? null);
+        // Get the initial session
+        const { data: { session: initialSession } } = await supabase.auth.getSession();
+        console.log("Initial session:", initialSession);
         
-        if (session?.user) {
-          const role = await fetchUserRole(session.user.id);
+        if (initialSession) {
+          setSession(initialSession);
+          setUser(initialSession.user);
+          
+          // Fetch and set user role
+          const role = await fetchUserRole(initialSession.user.id);
           console.log("Setting initial user role:", role);
           setUserRole(role);
+        } else {
+          // Clear all auth state if no session exists
+          setSession(null);
+          setUser(null);
+          setUserRole(null);
         }
       } catch (error) {
         console.error("Error initializing auth:", error);
+        toast.error("Error initializing authentication");
       } finally {
         setLoading(false);
       }
     };
 
+    // Initialize auth state
     initializeAuth();
 
-    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (_event, session) => {
-      console.log("Auth state changed:", _event, session);
-      setSession(session);
-      setUser(session?.user ?? null);
+    // Set up auth state change subscription
+    const { data: { subscription } } = supabase.auth.onAuthStateChange(async (event, currentSession) => {
+      console.log("Auth state changed:", event, currentSession);
       
-      if (session?.user) {
-        const role = await fetchUserRole(session.user.id);
+      if (currentSession) {
+        setSession(currentSession);
+        setUser(currentSession.user);
+        
+        const role = await fetchUserRole(currentSession.user.id);
         setUserRole(role);
+        
+        if (event === 'SIGNED_IN') {
+          if (role) {
+            handleRoleBasedRedirection(role);
+          }
+        }
       } else {
+        // Clear auth state on sign out
+        setSession(null);
+        setUser(null);
         setUserRole(null);
       }
       setLoading(false);
     });
 
-    return () => subscription.unsubscribe();
-  }, []);
+    // Cleanup subscription on unmount
+    return () => {
+      subscription.unsubscribe();
+    };
+  }, [navigate]);
 
   const signIn = async (email: string, password: string) => {
     try {
@@ -151,6 +176,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signOut = async () => {
     try {
       console.log("Signing out...");
+      setLoading(true);
       const { error } = await supabase.auth.signOut();
       if (error) {
         console.error("Sign out error:", error);
@@ -169,6 +195,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       console.error("Sign out error:", error);
       toast.error(error.message);
       throw error;
+    } finally {
+      setLoading(false);
     }
   };
 
