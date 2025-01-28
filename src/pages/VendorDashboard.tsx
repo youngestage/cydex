@@ -31,7 +31,7 @@ const VendorDashboard = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
-      <div className="flex">
+      <div className="flex pt-20">
         {/* Sidebar */}
         <aside className="w-64 min-h-screen bg-card border-r">
           <div className="p-6">
@@ -92,7 +92,7 @@ const VendorDashboard = () => {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 p-6 pt-200">
+        <main className="flex-1 p-6 pt-20">
           <Routes>
             <Route path="products" element={<Products />} />
             <Route path="*" element={<Outlet />} />
