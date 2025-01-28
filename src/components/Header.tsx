@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import { Menu, X, User, LogOut } from "lucide-react";
+import { Menu, X, User, LogOut, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
@@ -13,7 +13,7 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, userRole, signOut } = useAuth();
+  const { user, userRole, signOut, loading } = useAuth();
 
   const getDashboardRoute = () => {
     switch (userRole) {
@@ -25,6 +25,19 @@ export const Header = () => {
         return '/store';
       default:
         return '/auth';
+    }
+  };
+
+  const getDashboardText = () => {
+    switch (userRole) {
+      case 'vendor':
+        return 'Vendor Dashboard';
+      case 'rider':
+        return 'Rider Dashboard';
+      case 'customer':
+        return 'Store';
+      default:
+        return 'Dashboard';
     }
   };
 
@@ -52,7 +65,11 @@ export const Header = () => {
               </Link>
             </nav>
             
-            {user ? (
+            {loading ? (
+              <Button variant="ghost" disabled>
+                <Loader2 className="h-4 w-4 animate-spin" />
+              </Button>
+            ) : user ? (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="ghost" className="relative h-10 w-10 rounded-full">
@@ -67,9 +84,7 @@ export const Header = () => {
                   <DropdownMenuItem asChild>
                     <Link to={getDashboardRoute()} className="cursor-pointer">
                       <User className="mr-2 h-4 w-4" />
-                      {userRole === 'vendor' ? 'Vendor Dashboard' :
-                       userRole === 'rider' ? 'Rider Dashboard' :
-                       userRole === 'customer' ? 'Store' : 'Dashboard'}
+                      {getDashboardText()}
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => signOut()}>
@@ -110,12 +125,14 @@ export const Header = () => {
               <Link to="/contact" className="font-clash text-gray-600 hover:text-gray-900">
                 Contact
               </Link>
-              {user ? (
+              {loading ? (
+                <Button variant="ghost" disabled className="justify-start">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                </Button>
+              ) : user ? (
                 <>
                   <Link to={getDashboardRoute()} className="font-clash text-gray-600 hover:text-gray-900">
-                    {userRole === 'vendor' ? 'Vendor Dashboard' :
-                     userRole === 'rider' ? 'Rider Dashboard' :
-                     userRole === 'customer' ? 'Store' : 'Dashboard'}
+                    {getDashboardText()}
                   </Link>
                   <Button
                     onClick={() => signOut()}
