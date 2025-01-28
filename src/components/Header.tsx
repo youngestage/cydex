@@ -24,7 +24,7 @@ export const Header = () => {
       case 'customer':
         return '/store';
       default:
-        return '/';
+        return '/auth';
     }
   };
 
