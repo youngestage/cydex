@@ -9,314 +9,32 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      carbon_impacts: {
-        Row: {
-          co2_saved: number
-          created_at: string
-          delivery_count: number
-          id: string
-          updated_at: string
-          user_id: string | null
-        }
-        Insert: {
-          co2_saved?: number
-          created_at?: string
-          delivery_count?: number
-          id?: string
-          updated_at?: string
-          user_id?: string | null
-        }
-        Update: {
-          co2_saved?: number
-          created_at?: string
-          delivery_count?: number
-          id?: string
-          updated_at?: string
-          user_id?: string | null
-        }
-        Relationships: []
-      }
-      delivery_tracking: {
-        Row: {
-          carbon_saved: number | null
-          created_at: string
-          current_location: unknown
-          distance_covered: number | null
-          id: string
-          order_id: string
-          status: string
-          updated_at: string
-        }
-        Insert: {
-          carbon_saved?: number | null
-          created_at?: string
-          current_location: unknown
-          distance_covered?: number | null
-          id?: string
-          order_id: string
-          status: string
-          updated_at?: string
-        }
-        Update: {
-          carbon_saved?: number | null
-          created_at?: string
-          current_location?: unknown
-          distance_covered?: number | null
-          id?: string
-          order_id?: string
-          status?: string
-          updated_at?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "delivery_tracking_order_id_fkey"
-            columns: ["order_id"]
-            isOneToOne: false
-            referencedRelation: "orders"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      monthly_carbon_savings: {
-        Row: {
-          created_at: string
-          id: string
-          month: string
-          savings: number
-          user_id: string | null
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          month: string
-          savings?: number
-          user_id?: string | null
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          month?: string
-          savings?: number
-          user_id?: string | null
-        }
-        Relationships: []
-      }
-      order_items: {
-        Row: {
-          created_at: string
-          id: string
-          order_id: string
-          price_at_time: number
-          product_id: string
-          quantity: number
-        }
-        Insert: {
-          created_at?: string
-          id?: string
-          order_id: string
-          price_at_time: number
-          product_id: string
-          quantity: number
-        }
-        Update: {
-          created_at?: string
-          id?: string
-          order_id?: string
-          price_at_time?: number
-          product_id?: string
-          quantity?: number
-        }
-        Relationships: [
-          {
-            foreignKeyName: "order_items_order_id_fkey"
-            columns: ["order_id"]
-            isOneToOne: false
-            referencedRelation: "orders"
-            referencedColumns: ["id"]
-          },
-          {
-            foreignKeyName: "order_items_product_id_fkey"
-            columns: ["product_id"]
-            isOneToOne: false
-            referencedRelation: "products"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      orders: {
-        Row: {
-          created_at: string
-          customer_id: string
-          delivery_address: string
-          delivery_coordinates: unknown
-          id: string
-          rider_id: string | null
-          status: string
-          total_amount: number
-          updated_at: string
-        }
-        Insert: {
-          created_at?: string
-          customer_id: string
-          delivery_address: string
-          delivery_coordinates: unknown
-          id?: string
-          rider_id?: string | null
-          status?: string
-          total_amount: number
-          updated_at?: string
-        }
-        Update: {
-          created_at?: string
-          customer_id?: string
-          delivery_address?: string
-          delivery_coordinates?: unknown
-          id?: string
-          rider_id?: string | null
-          status?: string
-          total_amount?: number
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      payments: {
-        Row: {
-          amount: number
-          created_at: string
-          id: string
-          order_id: string
-          recipient_id: string
-          status: string
-          type: string
-        }
-        Insert: {
-          amount: number
-          created_at?: string
-          id?: string
-          order_id: string
-          recipient_id: string
-          status: string
-          type: string
-        }
-        Update: {
-          amount?: number
-          created_at?: string
-          id?: string
-          order_id?: string
-          recipient_id?: string
-          status?: string
-          type?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "payments_order_id_fkey"
-            columns: ["order_id"]
-            isOneToOne: false
-            referencedRelation: "orders"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
-      products: {
-        Row: {
-          available: boolean | null
-          created_at: string
-          description: string | null
-          id: string
-          image_url: string | null
-          name: string
-          price: number
-          updated_at: string
-          vendor_id: string
-        }
-        Insert: {
-          available?: boolean | null
-          created_at?: string
-          description?: string | null
-          id?: string
-          image_url?: string | null
-          name: string
-          price: number
-          updated_at?: string
-          vendor_id: string
-        }
-        Update: {
-          available?: boolean | null
-          created_at?: string
-          description?: string | null
-          id?: string
-          image_url?: string | null
-          name?: string
-          price?: number
-          updated_at?: string
-          vendor_id?: string
-        }
-        Relationships: [
-          {
-            foreignKeyName: "products_vendor_id_fkey"
-            columns: ["vendor_id"]
-            isOneToOne: false
-            referencedRelation: "vendors"
-            referencedColumns: ["id"]
-          },
-        ]
-      }
       profiles: {
         Row: {
-          avatar_url: string | null
           created_at: string
-          full_name: string | null
+          email: string | null
           id: string
-          phone_number: string
-          role: Database["public"]["Enums"]["user_role"]
-          updated_at: string
-        }
-        Insert: {
-          avatar_url?: string | null
-          created_at?: string
-          full_name?: string | null
-          id: string
-          phone_number: string
-          role?: Database["public"]["Enums"]["user_role"]
-          updated_at?: string
-        }
-        Update: {
-          avatar_url?: string | null
-          created_at?: string
-          full_name?: string | null
-          id?: string
-          phone_number?: string
-          role?: Database["public"]["Enums"]["user_role"]
-          updated_at?: string
-        }
-        Relationships: []
-      }
-      vendors: {
-        Row: {
-          created_at: string
-          description: string | null
-          id: string
-          location: unknown
-          rating: number | null
-          store_name: string
+          name: string | null
+          phone: string | null
+          role: string | null
           updated_at: string
         }
         Insert: {
           created_at?: string
-          description?: string | null
+          email?: string | null
           id: string
-          location: unknown
-          rating?: number | null
-          store_name: string
+          name?: string | null
+          phone?: string | null
+          role?: string | null
           updated_at?: string
         }
         Update: {
           created_at?: string
-          description?: string | null
+          email?: string | null
           id?: string
-          location?: unknown
-          rating?: number | null
-          store_name?: string
+          name?: string | null
+          phone?: string | null
+          role?: string | null
           updated_at?: string
         }
         Relationships: []
@@ -329,7 +47,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      user_role: "customer" | "vendor" | "rider"
+      [_ in never]: never
     }
     CompositeTypes: {
       [_ in never]: never
