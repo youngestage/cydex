@@ -10,11 +10,10 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { Skeleton } from "@/components/ui/skeleton";
 
 export const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { user, userRole, signOut, loading } = useAuth();
+  const { user, userRole, signOut } = useAuth();
 
   const getDashboardInfo = () => {
     switch (userRole) {
@@ -30,10 +29,6 @@ export const Header = () => {
   };
 
   const renderAuthButton = () => {
-    if (loading) {
-      return <Skeleton className="h-10 w-10 rounded-full" />;
-    }
-
     if (user && userRole) {
       return (
         <DropdownMenu>
