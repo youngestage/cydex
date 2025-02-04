@@ -2,7 +2,6 @@ import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Session, User } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
-import { toast } from "sonner";
 import { AuthContextType } from "./auth/types";
 import { fetchUserRole, handleAuthStateChange } from "./auth/utils";
 import { signIn as authSignIn, signUp as authSignUp, signOut as authSignOut } from "./auth/operations";
@@ -33,7 +32,6 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         }
       } catch (error) {
         console.error("Error initializing auth:", error);
-        toast.error("Error initializing authentication");
       } finally {
         setLoading(false);
       }

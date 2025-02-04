@@ -7,8 +7,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { Mail, Lock, User, Phone, Loader2 } from "lucide-react";
 import { toast } from "sonner";
-
-type UserRole = 'customer' | 'vendor' | 'rider';
+import { UserRole } from "@/contexts/auth/types";
 
 export const SignUpForm = () => {
   const [isLoading, setIsLoading] = useState(false);

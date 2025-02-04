@@ -8,6 +8,7 @@ export const signIn = async (
   navigate: (path: string) => void
 ) => {
   try {
+    console.log("Attempting sign in for email:", email);
     const { error, data } = await supabase.auth.signInWithPassword({
       email,
       password,
@@ -16,10 +17,8 @@ export const signIn = async (
     if (error) throw error;
     
     const role = await fetchUserRole(data.user.id);
-    if (role) {
-      toast.success("Successfully signed in!");
-      handleRoleBasedRedirection(role, navigate);
-    }
+    toast.success("Successfully signed in!");
+    handleRoleBasedRedirection(role, navigate);
   } catch (error: any) {
     console.error("Sign in error:", error);
     toast.error(error.message);
@@ -35,6 +34,7 @@ export const signUp = async (
   role: string
 ) => {
   try {
+    console.log("Attempting sign up for email:", email);
     const { error } = await supabase.auth.signUp({
       email,
       password,
@@ -46,7 +46,9 @@ export const signUp = async (
         },
       },
     });
+    
     if (error) throw error;
+    
     toast.success("Successfully signed up! Please check your email to verify your account.");
   } catch (error: any) {
     console.error("Sign up error:", error);
@@ -64,10 +66,7 @@ export const signOut = async (
   try {
     console.log("Signing out...");
     const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error("Sign out error:", error);
-      throw error;
-    }
+    if (error) throw error;
     
     setSession(null);
     setUser(null);

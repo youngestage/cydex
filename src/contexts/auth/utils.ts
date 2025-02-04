@@ -14,6 +14,7 @@ export const fetchUserRole = async (userId: string) => {
       console.error('Error fetching user role:', error);
       throw error;
     }
+    
     console.log("Fetched user role:", data?.role);
     return data?.role;
   } catch (error) {
@@ -22,7 +23,7 @@ export const fetchUserRole = async (userId: string) => {
   }
 };
 
-export const handleRoleBasedRedirection = (role: string, navigate: (path: string) => void) => {
+export const handleRoleBasedRedirection = (role: string | null, navigate: (path: string) => void) => {
   console.log("Handling role-based redirection for role:", role);
   switch (role) {
     case 'vendor':
@@ -44,7 +45,7 @@ export const handleAuthStateChange = async (
   currentSession: any,
   setSession: (session: any) => void,
   setUser: (user: any) => void,
-  setUserRole: (role: any) => void,
+  setUserRole: (role: string | null) => void,
   setLoading: (loading: boolean) => void,
   navigate: (path: string) => void
 ) => {
@@ -57,7 +58,7 @@ export const handleAuthStateChange = async (
     const role = await fetchUserRole(currentSession.user.id);
     setUserRole(role);
     
-    if (event === 'SIGNED_IN' && role) {
+    if (event === 'SIGNED_IN') {
       handleRoleBasedRedirection(role, navigate);
     }
   } else {
