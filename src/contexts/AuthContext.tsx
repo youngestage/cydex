@@ -5,6 +5,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { AuthContextType } from "./auth/types";
 import { fetchUserRole, handleAuthStateChange } from "./auth/utils";
 import { signIn as authSignIn, signUp as authSignUp, signOut as authSignOut } from "./auth/operations";
+import { toast } from "sonner";
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
@@ -28,10 +29,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
           setSession(initialSession);
           setUser(initialSession.user);
           const role = await fetchUserRole(initialSession.user.id);
+          console.log("Initial user role:", role);
           setUserRole(role);
         }
       } catch (error) {
         console.error("Error initializing auth:", error);
+        toast.error("Error loading user data");
       } finally {
         setLoading(false);
       }
@@ -85,8 +88,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
   };
 
+  const value = {
+    session,
+    user,
+    userRole,
+    signIn,
+    signUp,
+    signOut,
+    loading
+  };
+
   return (
-    <AuthContext.Provider value={{ session, user, userRole, signIn, signUp, signOut, loading }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );

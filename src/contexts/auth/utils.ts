@@ -8,7 +8,7 @@ export const fetchUserRole = async (userId: string) => {
       .from('profiles')
       .select('role')
       .eq('id', userId)
-      .single();
+      .maybeSingle();
 
     if (error) {
       console.error('Error fetching user role:', error);
@@ -51,20 +51,28 @@ export const handleAuthStateChange = async (
 ) => {
   console.log("Auth state changed:", event, currentSession);
   
-  if (currentSession) {
-    setSession(currentSession);
-    setUser(currentSession.user);
-    
-    const role = await fetchUserRole(currentSession.user.id);
-    setUserRole(role);
-    
-    if (event === 'SIGNED_IN') {
-      handleRoleBasedRedirection(role, navigate);
+  try {
+    if (currentSession) {
+      setSession(currentSession);
+      setUser(currentSession.user);
+      
+      const role = await fetchUserRole(currentSession.user.id);
+      console.log("Setting user role to:", role);
+      setUserRole(role);
+      
+      if (event === 'SIGNED_IN') {
+        handleRoleBasedRedirection(role, navigate);
+      }
+    } else {
+      console.log("No session found, clearing auth state");
+      setSession(null);
+      setUser(null);
+      setUserRole(null);
     }
-  } else {
-    setSession(null);
-    setUser(null);
-    setUserRole(null);
+  } catch (error) {
+    console.error("Error handling auth state change:", error);
+    toast.error("Error loading user data");
+  } finally {
+    setLoading(false);
   }
-  setLoading(false);
 };
