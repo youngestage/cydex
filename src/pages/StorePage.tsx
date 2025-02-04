@@ -1,3 +1,4 @@
+
 import { useEffect } from "react";
 import { useNavigate, Routes, Route } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -7,6 +8,9 @@ import { ProductList } from "@/components/store/ProductList";
 import { Cart } from "@/components/store/Cart";
 import { OrderHistory } from "@/components/store/OrderHistory";
 import { supabase } from "@/integrations/supabase/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 const StorePage = () => {
   const { user } = useAuth();
@@ -29,16 +33,18 @@ const StorePage = () => {
   }, [user, navigate]);
 
   return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <StoreLayout>
-        <Routes>
-          <Route path="/" element={<ProductList />} />
-          <Route path="/cart" element={<Cart />} />
-          <Route path="/orders" element={<OrderHistory />} />
-        </Routes>
-      </StoreLayout>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <div className="min-h-screen bg-background">
+        <Header />
+        <StoreLayout>
+          <Routes>
+            <Route path="/" element={<ProductList />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/orders" element={<OrderHistory />} />
+          </Routes>
+        </StoreLayout>
+      </div>
+    </QueryClientProvider>
   );
 };
 
