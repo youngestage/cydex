@@ -308,7 +308,7 @@ export default function Products() {
                     )}
                   </TableCell>
                   <TableCell>{product.name}</TableCell>
-                  <TableCell>${product.price.toFixed(2)}</TableCell>
+                  <TableCell>₦{product.price.toFixed(2)}</TableCell>
                   <TableCell>
                     <span
                       className={`inline-flex rounded-full px-2 py-1 text-xs font-medium ${
