@@ -7,17 +7,6 @@ import { ProductList } from "@/components/store/ProductList";
 import { Cart } from "@/components/store/Cart";
 import { OrderHistory } from "@/components/store/OrderHistory";
 import { supabase } from "@/integrations/supabase/client";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-
-// Create a client
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 1000 * 60 * 5, // 5 minutes
-      retry: 1,
-    },
-  },
-});
 
 const StorePage = () => {
   const { user } = useAuth();
@@ -25,13 +14,16 @@ const StorePage = () => {
 
   useEffect(() => {
     const checkCustomerRole = async () => {
+      console.log("Checking customer role for user:", user?.id);
       const { data: profile } = await supabase
         .from("profiles")
         .select("role")
         .eq("id", user?.id)
         .maybeSingle();
 
+      console.log("Profile data:", profile);
       if (profile?.role !== "customer") {
+        console.log("User is not a customer, redirecting to home");
         navigate("/");
       }
     };
@@ -42,18 +34,16 @@ const StorePage = () => {
   }, [user, navigate]);
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <div className="min-h-screen bg-background">
-        <Header />
-        <StoreLayout>
-          <Routes>
-            <Route path="/" element={<ProductList />} />
-            <Route path="/cart" element={<Cart />} />
-            <Route path="/orders" element={<OrderHistory />} />
-          </Routes>
-        </StoreLayout>
-      </div>
-    </QueryClientProvider>
+    <div className="min-h-screen bg-background">
+      <Header />
+      <StoreLayout>
+        <Routes>
+          <Route path="/" element={<ProductList />} />
+          <Route path="/cart" element={<Cart />} />
+          <Route path="/orders" element={<OrderHistory />} />
+        </Routes>
+      </StoreLayout>
+    </div>
   );
 };
 
