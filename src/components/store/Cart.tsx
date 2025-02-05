@@ -1,4 +1,3 @@
-
 import { useQuery } from "@tanstack/react-query";
 import { CartItem } from "@/types/store";
 import { supabase } from "@/integrations/supabase/client";
@@ -6,6 +5,7 @@ import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "../ui/button";
 import { Minus, Plus, Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { Link } from "react-router-dom";
 
 export const Cart = () => {
   const { user } = useAuth();
