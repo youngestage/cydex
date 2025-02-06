@@ -1,3 +1,4 @@
+
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Session, User } from "@supabase/supabase-js";
@@ -22,6 +23,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         setLoading(true);
         console.log("Initializing auth state...");
         
+        // Get the initial session
         const { data: { session: initialSession } } = await supabase.auth.getSession();
         console.log("Initial session:", initialSession);
         
@@ -40,10 +42,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       }
     };
 
+    // Initialize auth state
     initializeAuth();
 
+    // Set up auth state change listener
     const { data: { subscription } } = supabase.auth.onAuthStateChange(
       async (event, currentSession) => {
+        console.log("Auth state changed:", event, currentSession);
         await handleAuthStateChange(
           event,
           currentSession,
