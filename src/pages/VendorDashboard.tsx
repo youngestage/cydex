@@ -1,9 +1,8 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate, Link, Outlet, Routes, Route } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
 import { Button } from "@/components/ui/button";
-import { Package, ChartBar, Store, ShoppingCart, Settings, Pencil } from "lucide-react";
+import { Package, ChartBar, Store, ShoppingCart, Settings as SettingsIcon, Pencil } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
@@ -152,7 +151,7 @@ const VendorDashboard = () => {
               asChild
             >
               <Link to="/vendor/settings">
-                <Settings className="mr-2" />
+                <SettingsIcon className="mr-2" />
                 Settings
               </Link>
             </Button>
