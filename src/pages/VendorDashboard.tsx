@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { useNavigate, Link, Outlet, Routes, Route } from "react-router-dom";
 import { useAuth } from "@/contexts/AuthContext";
@@ -7,6 +8,8 @@ import { supabase } from "@/integrations/supabase/client";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import Products from "./vendor/Products";
+import StoreProfile from "./vendor/StoreProfile";
+import Settings from "./vendor/Settings";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 
@@ -160,6 +163,8 @@ const VendorDashboard = () => {
         <main className="flex-1 p-6 pt-20">
           <Routes>
             <Route path="products" element={<Products />} />
+            <Route path="store" element={<StoreProfile />} />
+            <Route path="settings" element={<Settings />} />
             <Route path="*" element={<Outlet />} />
           </Routes>
         </main>
