@@ -136,33 +136,69 @@ export type Database = {
       }
       profiles: {
         Row: {
+          business_email: string | null
+          business_phone: string | null
           created_at: string
           email: string | null
           id: string
           name: string | null
+          notification_preferences: Json | null
+          opening_hours: Json | null
           phone: string | null
           role: string | null
+          social_media: Json | null
+          store_address: string | null
+          store_banner_url: string | null
+          store_categories: string[] | null
+          store_description: string | null
+          store_logo_url: string | null
           store_name: string | null
+          store_policies: Json | null
+          store_settings: Json | null
           updated_at: string
         }
         Insert: {
+          business_email?: string | null
+          business_phone?: string | null
           created_at?: string
           email?: string | null
           id: string
           name?: string | null
+          notification_preferences?: Json | null
+          opening_hours?: Json | null
           phone?: string | null
           role?: string | null
+          social_media?: Json | null
+          store_address?: string | null
+          store_banner_url?: string | null
+          store_categories?: string[] | null
+          store_description?: string | null
+          store_logo_url?: string | null
           store_name?: string | null
+          store_policies?: Json | null
+          store_settings?: Json | null
           updated_at?: string
         }
         Update: {
+          business_email?: string | null
+          business_phone?: string | null
           created_at?: string
           email?: string | null
           id?: string
           name?: string | null
+          notification_preferences?: Json | null
+          opening_hours?: Json | null
           phone?: string | null
           role?: string | null
+          social_media?: Json | null
+          store_address?: string | null
+          store_banner_url?: string | null
+          store_categories?: string[] | null
+          store_description?: string | null
+          store_logo_url?: string | null
           store_name?: string | null
+          store_policies?: Json | null
+          store_settings?: Json | null
           updated_at?: string
         }
         Relationships: []
